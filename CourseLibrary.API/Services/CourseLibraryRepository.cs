@@ -158,5 +158,15 @@ namespace CourseLibrary.API.Services
                // dispose resources when needed
             }
         }
+
+        public bool CourseHasAuthor(Guid authorId)
+        {
+            if (authorId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(authorId));
+            }
+
+            return _context.Courses.Any(a => a.AuthorId == authorId);
+        }
     }
 }
