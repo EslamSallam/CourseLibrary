@@ -22,7 +22,7 @@ namespace CourseLibrary.API.Controllers
                 throw new ArgumentNullException(nameof(courseLibraryRepository));
         }
         [HttpGet()]
-        public IActionResult GetAuthors()
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
         {
             var authorsFromRepo = _courseLibraryRepository.GetAuthors();
             var authors = new List<AuthorDto>();
@@ -36,7 +36,7 @@ namespace CourseLibrary.API.Controllers
                     Age = DateTimeOffsetExtensions.GetCurrentAge(author.DateOfBirth)
                 });
             }
-            return Ok(authorsFromRepo);
+            return Ok(authors);
         }
 
         [HttpGet("{authorID}")]

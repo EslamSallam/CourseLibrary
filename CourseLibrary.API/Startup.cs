@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using System;
 
 namespace CourseLibrary.API
 {
@@ -27,6 +28,8 @@ namespace CourseLibrary.API
            {
                setupAccept.ReturnHttpNotAcceptable = true;
            }).AddXmlDataContractSerializerFormatters();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
              
             services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
