@@ -137,14 +137,16 @@ namespace CourseLibrary.API.Services
             var collection = _context.Authors as IQueryable<Author>;
             if (!string.IsNullOrWhiteSpace(authorsResourceParameters.MainCategory))
             {
-                authorsResourceParameters.MainCategory = authorsResourceParameters.MainCategory.Trim();
-               collection = collection.Where(a => a.MainCategory == authorsResourceParameters.MainCategory);
+               var mainCategory = authorsResourceParameters.MainCategory.Trim();
+               collection = collection.Where(a => a.MainCategory == mainCategory);
             }
 
             if (!string.IsNullOrWhiteSpace(authorsResourceParameters.SearchQuery))
             {
-                authorsResourceParameters.SearchQuery = authorsResourceParameters.SearchQuery.Trim();
-                collection = collection.Where(a => a.MainCategory.Contains(authorsResourceParameters.SearchQuery) || a.FirstName.Contains(authorsResourceParameters.SearchQuery) || a.LastName.Contains(authorsResourceParameters.SearchQuery));
+                var searchQuery = authorsResourceParameters.SearchQuery.Trim();
+                collection = collection.Where(a => a.MainCategory.Contains(searchQuery) 
+                || a.FirstName.Contains(searchQuery) 
+                || a.LastName.Contains(searchQuery));
             }
             return collection.ToList<Author>();
         }
