@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CourseLibrary.API.Helpers;
+using System.Collections.Generic;
 
 namespace CourseLibrary.API.Profiles
 {
