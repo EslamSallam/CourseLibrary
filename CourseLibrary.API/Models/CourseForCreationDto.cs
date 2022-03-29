@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferentFromDescriptionAttribute]
+    [CourseTitleMustBeDifferentFromDescriptionAttribute(ErrorMessage = "Title and Description must be different!!")]
     public class CourseForCreationDto // : IValidatableObject
     {
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Title is required")]
+        [MaxLength(100,ErrorMessage ="Max length is 100 chars")]
         public string Title { get; set; }
         [MaxLength(1500)]
         public string Description { get; set; }
