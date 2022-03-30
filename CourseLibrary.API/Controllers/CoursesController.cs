@@ -62,7 +62,7 @@ namespace CourseLibrary.API.Controllers
         }
 
         [HttpPut("{courseID}")]
-        public ActionResult UpdateCourseForAuthor(Guid AuthorID,Guid CourseID,CourseForUpdateDto courseUpdate)
+        public IActionResult UpdateCourseForAuthor(Guid AuthorID,Guid CourseID,CourseForUpdateDto courseUpdate)
         {
             if (!_courseLibraryRepository.AuthorExists(AuthorID))
             {
@@ -72,7 +72,16 @@ namespace CourseLibrary.API.Controllers
             var course = _courseLibraryRepository.GetCourse(AuthorID, CourseID);
             if (course == null)
             {
-                return NotFound();
+                var courseToAdd = _mapper.Map<Entities.Course>(courseUpdate);
+                courseToAdd.Id = CourseID;
+
+                _courseLibraryRepository.AddCourse(AuthorID, courseToAdd);
+
+                _courseLibraryRepository.Save();
+
+                var courseToReturn = _mapper.Map<CoursesDto>(courseToAdd);
+
+                return CreatedAtRoute("GetCourseForAuthor", new { authorID = AuthorID, courseID = courseToReturn.Id }, courseToReturn);
             }
 
             // map the entity to a courseForUpdateDto

@@ -5,21 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferentFromDescriptionAttribute(ErrorMessage = "Title and Description must be different!!")]
-    public class CourseForCreationDto // : IValidatableObject
+    public class CourseForCreationDto : CourseForManipulationDto
     {
-        [Required(ErrorMessage = "Title is required")]
-        [MaxLength(100,ErrorMessage ="Max length is 100 chars")]
-        public string Title { get; set; }
-        [MaxLength(1500)]
-        public string Description { get; set; }
-
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (Title == Description)
-        //    {
-        //        yield return new ValidationResult("The provided description should be different from the title.", new[] { "CourseForCreationDto" });
-        //    }
-        //}
+        [MaxLength(1200)]
+        public override string Description { get => base.Description; set => base.Description = value; }
     }
 }

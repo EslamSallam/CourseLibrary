@@ -1,10 +1,13 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace CourseLibrary.API.Models
 {
-    public class CourseForUpdateDto
+    public class CourseForUpdateDto : CourseForManipulationDto
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        [Required(ErrorMessage = "Description is required when updating resource 😃")]
+        [MaxLength(1500)]
+        public override string Description { get => base.Description; set => base.Description = value; }
 
     }
 }
