@@ -60,10 +60,26 @@ namespace CourseLibrary.API.Controllers
             return CreatedAtRoute("GetAuthor",new {authorID = authorDto.Id},authorDto);
         }
 
+        [HttpDelete("{authorId}")]
+        public ActionResult DeleteCourseForAuthor(Guid authorId)
+        {
+            var AuthorToDelete = _courseLibraryRepository.GetAuthor(authorId);
+
+            if (AuthorToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _courseLibraryRepository.DeleteAuthor(AuthorToDelete);
+            _courseLibraryRepository.Save();
+
+            return NoContent();
+        }
+
         [HttpOptions]
         public IActionResult GetAuthorsOptions()
         {
-            Response.Headers.Add("Allow", "Get,Options,Post");
+            Response.Headers.Add("Allow", "Delete,Get,Options,Post");
             return Ok();
         }
     }

@@ -153,7 +153,7 @@ namespace CourseLibrary.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("courseId")]
+        [HttpDelete("{courseId}")]
         public ActionResult DeleteCourseForAuthor(Guid authorId,Guid courseId)
         {
             if (!_courseLibraryRepository.AuthorExists(authorId))
